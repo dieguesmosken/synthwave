@@ -1,0 +1,6 @@
+{
+  "name": "SoundWave",
+  "description": "App de streaming de música synthwave neon",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
