@@ -20,11 +20,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui.theme.NeonPink
 import com.example.ui.theme.ElectricBlue
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.launch
+import com.example.auth.GoogleAuthClient
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(onLoginSuccess: () -> Unit) {
     var isLogin by remember { mutableStateOf(true) }
+    val context = LocalContext.current
+    val googleAuthClient = remember { GoogleAuthClient(context) }
+    val coroutineScope = rememberCoroutineScope()
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
@@ -69,7 +75,21 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             Spacer(modifier = Modifier.height(32.dp))
 
             OutlinedButton(
-                onClick = onLoginSuccess,
+                onClick = {
+                    coroutineScope.launch {
+                        val credential = googleAuthClient.signIn()
+                        if (credential != null) {
+                            val userRepository = com.example.data.UserRepository()
+                            val user = com.example.data.UserModel(
+                                _id = credential.id,
+                                name = credential.displayName ?: "Usuário SoundWave",
+                                email = credential.id
+                            )
+                            userRepository.saveUser(user)
+                            onLoginSuccess()
+                        }
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
@@ -81,14 +101,14 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
 
             Spacer(modifier = Modifier.height(24.dp))
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-                Divider(modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f))
+                HorizontalDivider(modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f))
                 Text(
                     text = "ou use seu e-mail",
                     modifier = Modifier.padding(horizontal = 16.dp),
                     fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
                 )
-                Divider(modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f))
+                HorizontalDivider(modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f))
             }
             Spacer(modifier = Modifier.height(24.dp))
 
