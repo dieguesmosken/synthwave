@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -121,10 +123,10 @@ fun PlayerScreen(onBack: () -> Unit) {
                         .size(72.dp)
                         .clip(CircleShape)
                         .background(Color(0xFFD32F2F))
-                        .clickable { },
+                        .clickable(role = Role.Button, onClickLabel = "Pausar") { },
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(Icons.Filled.Pause, "Pause", tint = Color.White, modifier = Modifier.size(36.dp))
+                    Icon(Icons.Filled.Pause, contentDescription = null, tint = Color.White, modifier = Modifier.size(36.dp))
                 }
                 
                 IconButton(onClick = {}) { Icon(Icons.Filled.SkipNext, "Next", modifier = Modifier.size(40.dp), tint = MaterialTheme.colorScheme.onBackground) }
@@ -173,8 +175,13 @@ fun PlayerScreen(onBack: () -> Unit) {
 
 @Composable
 fun BottomActionItem(icon: androidx.compose.ui.graphics.vector.ImageVector, label: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.clickable { }) {
-        Icon(icon, contentDescription = label, tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f))
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .clickable(role = Role.Button) { }
+            .semantics(mergeDescendants = true) { }
+    ) {
+        Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f))
         Spacer(modifier = Modifier.height(4.dp))
         Text(label, fontSize = 12.sp, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f))
     }
