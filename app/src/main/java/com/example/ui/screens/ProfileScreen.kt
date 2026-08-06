@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -155,13 +156,13 @@ fun SettingsRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick() }
+            .clickable(role = Role.Button) { onClick() }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(imageVector = icon, contentDescription = text, tint = iconColor)
+        Icon(imageVector = icon, contentDescription = null, tint = iconColor)
         Spacer(modifier = Modifier.width(16.dp))
         Text(text, fontSize = 16.sp, color = textColor, modifier = Modifier.weight(1f))
-        Icon(imageVector = Icons.Filled.ChevronRight, contentDescription = "Arrow", tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f))
+        Icon(imageVector = Icons.Filled.ChevronRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f))
     }
 }
