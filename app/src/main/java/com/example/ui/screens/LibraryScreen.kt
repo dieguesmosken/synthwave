@@ -18,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,7 +50,7 @@ fun LibraryScreen() {
             ) {
                 Text("Minha Biblioteca", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground)
                 IconButton(onClick = {}) {
-                    Icon(Icons.Filled.Add, contentDescription = "Add", tint = MaterialTheme.colorScheme.onBackground)
+                    Icon(Icons.Filled.Add, contentDescription = "Adicionar", tint = MaterialTheme.colorScheme.onBackground)
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -62,7 +64,10 @@ fun LibraryScreen() {
                 item {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.clickable { }.padding(vertical = 8.dp)
+                        modifier = Modifier
+                            .clickable(role = Role.Button) { }
+                            .semantics(mergeDescendants = true) { }
+                            .padding(vertical = 8.dp)
                     ) {
                         Box(
                             modifier = Modifier
@@ -73,7 +78,7 @@ fun LibraryScreen() {
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.Favorite,
-                                contentDescription = "Curtidas",
+                                contentDescription = null,
                                 tint = Color.White,
                                 modifier = Modifier.size(32.dp)
                             )
@@ -102,7 +107,8 @@ fun CustomChip(label: String) {
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))
             .background(Color.White.copy(alpha = 0.1f))
-            .clickable { }
+            .clickable(role = Role.Button) { }
+            .semantics(mergeDescendants = true) { }
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Text(label, color = MaterialTheme.colorScheme.onBackground, fontSize = 14.sp)
@@ -113,7 +119,10 @@ fun CustomChip(label: String) {
 fun LibraryRowItem(item: LibraryItem) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.clickable { }.padding(vertical = 8.dp)
+        modifier = Modifier
+            .clickable(role = Role.Button) { }
+            .semantics(mergeDescendants = true) { }
+            .padding(vertical = 8.dp)
     ) {
         Box(
             modifier = Modifier
@@ -124,7 +133,7 @@ fun LibraryRowItem(item: LibraryItem) {
             val url = if (item.isRound) "https://i.pravatar.cc/150?img=${item.imageSeed}" else "https://picsum.photos/seed/${item.imageSeed}/200"
             AsyncImage(
                 model = url,
-                contentDescription = item.title,
+                contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
             )
@@ -134,7 +143,7 @@ fun LibraryRowItem(item: LibraryItem) {
             Text(item.title, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (item.isPinned) {
-                    Icon(Icons.Filled.PushPin, contentDescription = "Pinned", tint = NeonPink, modifier = Modifier.size(14.dp).padding(end = 4.dp))
+                    Icon(Icons.Filled.PushPin, contentDescription = "Fixado", tint = NeonPink, modifier = Modifier.size(14.dp).padding(end = 4.dp))
                 }
                 Text(item.subtitle, fontSize = 14.sp, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f))
             }
