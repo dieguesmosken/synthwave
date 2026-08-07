@@ -1,3 +1,3 @@
-## 2024-03-24 - Screen Reader Redundancy in Compose Custom Buttons
-**Learning:** In Jetpack Compose, setting a `contentDescription` on an `Icon` inside a `clickable` `Column` that also contains a `Text` element causes the screen reader to read the information redundantly, and without a button role, the user might not know it's a clickable action.
-**Action:** Always assign `role = Role.Button` to the clickable modifier of a custom action component. Additionally, set `contentDescription = null` on the inner `Icon` when a sibling `Text` element already provides the identical context.
+## 2024-05-24 - Make SettingsSwitchItem entire Row toggleable
+**Learning:** Using `Modifier.toggleable` on a parent `Row` with `Role.Switch` while passing `onCheckedChange = null` to the inner `Switch` component significantly improves the touch target size and semantic accessibility for screen readers in Jetpack Compose.
+**Action:** Always prefer making the entire list item row interactive for switches/checkboxes rather than relying only on the small touch target of the component itself.
