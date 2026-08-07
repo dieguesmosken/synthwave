@@ -40,14 +40,14 @@ fun PlayerScreen(onBack: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = onBack) {
-                    Icon(Icons.Filled.KeyboardArrowDown, contentDescription = "Close", tint = MaterialTheme.colorScheme.onBackground)
+                    Icon(Icons.Filled.KeyboardArrowDown, contentDescription = "Fechar", tint = MaterialTheme.colorScheme.onBackground)
                 }
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("TOCANDO AGORA", fontSize = 10.sp, letterSpacing = 1.sp, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
                     Text("SoundWave", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground)
                 }
                 IconButton(onClick = {}) {
-                    Icon(Icons.Filled.MoreVert, contentDescription = "More", tint = MaterialTheme.colorScheme.onBackground)
+                    Icon(Icons.Filled.MoreVert, contentDescription = "Mais opções", tint = MaterialTheme.colorScheme.onBackground)
                 }
             }
 
@@ -82,7 +82,7 @@ fun PlayerScreen(onBack: () -> Unit) {
                     Text("Aurora Blade", fontSize = 18.sp, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
                 }
                 IconButton(onClick = {}) {
-                    Icon(Icons.Outlined.FavoriteBorder, contentDescription = "Like", tint = MaterialTheme.colorScheme.onBackground, modifier = Modifier.size(28.dp))
+                    Icon(Icons.Outlined.FavoriteBorder, contentDescription = "Curtir", tint = MaterialTheme.colorScheme.onBackground, modifier = Modifier.size(28.dp))
                 }
             }
 
@@ -115,8 +115,8 @@ fun PlayerScreen(onBack: () -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = {}) { Icon(Icons.Filled.Shuffle, "Shuffle", tint = MaterialTheme.colorScheme.onBackground) }
-                IconButton(onClick = {}) { Icon(Icons.Filled.SkipPrevious, "Previous", modifier = Modifier.size(40.dp), tint = MaterialTheme.colorScheme.onBackground) }
+                IconButton(onClick = {}) { Icon(Icons.Filled.Shuffle, "Aleatório", tint = MaterialTheme.colorScheme.onBackground) }
+                IconButton(onClick = {}) { Icon(Icons.Filled.SkipPrevious, "Anterior", modifier = Modifier.size(40.dp), tint = MaterialTheme.colorScheme.onBackground) }
                 
                 Box(
                     modifier = Modifier
@@ -129,8 +129,8 @@ fun PlayerScreen(onBack: () -> Unit) {
                     Icon(Icons.Filled.Pause, contentDescription = null, tint = Color.White, modifier = Modifier.size(36.dp))
                 }
                 
-                IconButton(onClick = {}) { Icon(Icons.Filled.SkipNext, "Next", modifier = Modifier.size(40.dp), tint = MaterialTheme.colorScheme.onBackground) }
-                IconButton(onClick = {}) { Icon(Icons.Filled.Repeat, "Repeat", tint = MaterialTheme.colorScheme.onBackground) }
+                IconButton(onClick = {}) { Icon(Icons.Filled.SkipNext, "Próxima", modifier = Modifier.size(40.dp), tint = MaterialTheme.colorScheme.onBackground) }
+                IconButton(onClick = {}) { Icon(Icons.Filled.Repeat, "Repetir", tint = MaterialTheme.colorScheme.onBackground) }
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -144,7 +144,7 @@ fun PlayerScreen(onBack: () -> Unit) {
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(Icons.Filled.VolumeDown, "Volume Down", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
+                Icon(Icons.Filled.VolumeDown, "Diminuir volume", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
                 Slider(
                     value = 0.7f,
                     onValueChange = {},
@@ -155,7 +155,7 @@ fun PlayerScreen(onBack: () -> Unit) {
                         inactiveTrackColor = Color.White.copy(alpha = 0.2f)
                     )
                 )
-                Icon(Icons.Filled.VolumeUp, "Volume Up", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
+                Icon(Icons.Filled.VolumeUp, "Aumentar volume", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
             }
 
             Spacer(modifier = Modifier.weight(1f))

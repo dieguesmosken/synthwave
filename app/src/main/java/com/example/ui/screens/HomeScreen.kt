@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,17 +51,17 @@ fun HomeScreen(onNavigateToPlayer: () -> Unit) {
                         modifier = Modifier.padding(start = 16.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(Icons.Filled.GraphicEq, contentDescription = "Logo", tint = NeonPink, modifier = Modifier.size(24.dp))
+                        Icon(Icons.Filled.GraphicEq, contentDescription = "Logotipo", tint = NeonPink, modifier = Modifier.size(24.dp))
                         Spacer(modifier = Modifier.width(8.dp))
                         Text("SoundWave", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground)
                     }
                 },
                 actions = {
                     IconButton(onClick = { }) {
-                        Icon(Icons.Filled.Notifications, contentDescription = "Notifications", tint = MaterialTheme.colorScheme.onBackground)
+                        Icon(Icons.Filled.Notifications, contentDescription = "Notificações", tint = MaterialTheme.colorScheme.onBackground)
                     }
                     IconButton(onClick = { }) {
-                        Icon(Icons.Filled.Settings, contentDescription = "Settings", tint = MaterialTheme.colorScheme.onBackground)
+                        Icon(Icons.Filled.Settings, contentDescription = "Configurações", tint = MaterialTheme.colorScheme.onBackground)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -102,7 +103,7 @@ fun RecentSection(onNavigateToPlayer: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text("Tocadas recentemente", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-            Text("Ver tudo", fontSize = 14.sp, color = NeonPink, modifier = Modifier.clickable {})
+            Text("Ver tudo", fontSize = 14.sp, color = NeonPink, modifier = Modifier.clickable(role = Role.Button) {})
         }
         LazyRow(
             contentPadding = PaddingValues(horizontal = 16.dp),
@@ -110,7 +111,7 @@ fun RecentSection(onNavigateToPlayer: () -> Unit) {
         ) {
             items(recentMocks) { item ->
                 Column(
-                    modifier = Modifier.width(140.dp).clickable { onNavigateToPlayer() }
+                    modifier = Modifier.width(140.dp).clickable(role = Role.Button) { onNavigateToPlayer() }
                 ) {
                     Box(
                         modifier = Modifier
@@ -161,7 +162,7 @@ fun ForYouCard(title: String, color: Color, modifier: Modifier = Modifier, onCli
             .height(80.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(color.copy(alpha = 0.2f))
-            .clickable { onClick() }
+            .clickable(role = Role.Button) { onClick() }
             .padding(16.dp),
         contentAlignment = Alignment.CenterStart
     ) {
@@ -173,7 +174,7 @@ fun ForYouCard(title: String, color: Color, modifier: Modifier = Modifier, onCli
                     .background(color),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Filled.PlayArrow, contentDescription = "Play", tint = Color.White)
+                Icon(Icons.Filled.PlayArrow, contentDescription = null, tint = Color.White)
             }
             Spacer(modifier = Modifier.width(12.dp))
             Text(title, fontWeight = FontWeight.Bold, fontSize = 14.sp)
@@ -191,7 +192,7 @@ fun TopBrasilSection(onNavigateToPlayer: () -> Unit) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { onNavigateToPlayer() }
+                        .clickable(role = Role.Button) { onNavigateToPlayer() }
                         .padding(vertical = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -215,7 +216,7 @@ fun TopBrasilSection(onNavigateToPlayer: () -> Unit) {
                         Text(track.second, fontSize = 14.sp, color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
                     }
                     IconButton(onClick = { }) {
-                        Icon(Icons.Filled.MoreVert, contentDescription = "More", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
+                        Icon(Icons.Filled.MoreVert, contentDescription = "Mais opções", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
                     }
                 }
             }
