@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,7 +33,7 @@ fun SearchScreen() {
                 value = "",
                 onValueChange = {},
                 placeholder = { Text("Artistas, músicas ou podcasts", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)) },
-                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)) },
+                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Pesquisar", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)) },
                 modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(24.dp)).background(Color.White.copy(alpha = 0.1f)),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.Transparent,
@@ -54,7 +55,7 @@ fun SearchScreen() {
                             .height(80.dp)
                             .clip(RoundedCornerShape(8.dp))
                             .background(col)
-                            .clickable { }
+                            .clickable(role = Role.Button) { }
                             .padding(16.dp)
                     ) {
                         Text(

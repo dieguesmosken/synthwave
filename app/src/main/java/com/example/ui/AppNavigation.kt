@@ -46,7 +46,7 @@ fun AppNavigation(
                 ) {
                     bottomNavItems.forEach { screen ->
                         NavigationBarItem(
-                            icon = { Icon(screen.icon!!, contentDescription = screen.title) },
+                            icon = { Icon(screen.icon!!, contentDescription = null) },
                             label = { Text(screen.title) },
                             selected = currentRoute == screen.route,
                             onClick = {
