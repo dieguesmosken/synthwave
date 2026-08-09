@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -144,18 +145,21 @@ fun PlayerScreen(onBack: () -> Unit) {
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(Icons.Filled.VolumeDown, "Diminuir volume", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
+                Icon(Icons.Filled.VolumeDown, contentDescription = null, tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
                 Slider(
                     value = 0.7f,
                     onValueChange = {},
-                    modifier = Modifier.weight(1f).padding(horizontal = 8.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 8.dp)
+                        .semantics { contentDescription = "Volume do áudio" },
                     colors = SliderDefaults.colors(
                         thumbColor = Color.White,
                         activeTrackColor = Color.White,
                         inactiveTrackColor = Color.White.copy(alpha = 0.2f)
                     )
                 )
-                Icon(Icons.Filled.VolumeUp, "Aumentar volume", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
+                Icon(Icons.Filled.VolumeUp, contentDescription = null, tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
             }
 
             Spacer(modifier = Modifier.weight(1f))
