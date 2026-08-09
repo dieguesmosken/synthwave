@@ -22,6 +22,7 @@ import com.example.ui.theme.NeonPink
 import com.example.ui.theme.ElectricBlue
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.launch
+import android.widget.Toast
 import com.example.auth.GoogleAuthClient
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -165,7 +166,9 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             if (isLogin) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    TextButton(onClick = { /* TODO */ }) {
+                    TextButton(onClick = {
+                        Toast.makeText(context, "Funcionalidade em desenvolvimento", Toast.LENGTH_SHORT).show()
+                    }) {
                         Text("Esqueceu a senha?", color = NeonPink)
                     }
                 }
@@ -200,9 +203,9 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                TextButton(onClick = { /* TODO */ }) { Text("Termos", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
-                TextButton(onClick = { /* TODO */ }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
-                TextButton(onClick = { /* TODO */ }) { Text("Ajuda", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { Toast.makeText(context, "Funcionalidade em desenvolvimento", Toast.LENGTH_SHORT).show() }) { Text("Termos", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { Toast.makeText(context, "Funcionalidade em desenvolvimento", Toast.LENGTH_SHORT).show() }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { Toast.makeText(context, "Funcionalidade em desenvolvimento", Toast.LENGTH_SHORT).show() }) { Text("Ajuda", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
             }
         }
     }
