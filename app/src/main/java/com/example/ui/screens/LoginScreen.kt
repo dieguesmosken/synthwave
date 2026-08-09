@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ui.theme.NeonPink
 import com.example.ui.theme.ElectricBlue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import kotlinx.coroutines.launch
 import com.example.auth.GoogleAuthClient
 
@@ -29,6 +30,7 @@ import com.example.auth.GoogleAuthClient
 fun LoginScreen(onLoginSuccess: () -> Unit) {
     var isLogin by remember { mutableStateOf(true) }
     val context = LocalContext.current
+    val uriHandler = LocalUriHandler.current
     val googleAuthClient = remember { GoogleAuthClient(context) }
     val coroutineScope = rememberCoroutineScope()
     var email by remember { mutableStateOf("") }
@@ -201,7 +203,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 TextButton(onClick = { /* TODO */ }) { Text("Termos", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
-                TextButton(onClick = { /* TODO */ }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { uriHandler.openUri("https://example.com/privacy") }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
                 TextButton(onClick = { /* TODO */ }) { Text("Ajuda", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
             }
         }
