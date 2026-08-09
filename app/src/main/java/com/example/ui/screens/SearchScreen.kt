@@ -22,6 +22,7 @@ import com.example.ui.theme.NeonPink
 
 val categories = listOf("Synthwave", "Pop", "Eletrônica", "Rock", "Hip Hop", "K-Pop", "Jazz", "Funk")
 val colorList = listOf(Color(0xFF0052CC), Color(0xFFFF007F), Color(0xFF9D00FF), Color(0xFFD32F2F), Color(0xFF4DD0E1), Color(0xFFFF9800), Color(0xFF8BC34A), Color(0xFFE91E63))
+val categoriesWithColors = categories.zip(colorList)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,7 +50,7 @@ fun SearchScreen() {
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                items(categories.zip(colorList)) { (cat, col) ->
+                items(categoriesWithColors) { (cat, col) ->
                     Box(
                         modifier = Modifier
                             .height(80.dp)
