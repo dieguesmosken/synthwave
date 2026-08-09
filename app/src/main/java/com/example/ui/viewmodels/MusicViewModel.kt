@@ -34,7 +34,7 @@ class MusicViewModel : ViewModel() {
     val isLoading: StateFlow<Boolean> = _isLoading
 
     // In a real application, you would fetch and refresh this token via Spotify's OAuth 2.0 flow
-    private var accessToken = "MOCK_SPOTIFY_TOKEN"
+    private var accessToken: String? = null
 
     fun setToken(token: String) {
         this.accessToken = token
@@ -49,9 +49,9 @@ class MusicViewModel : ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                // If using a real token, it should be formatted as "Bearer $accessToken"
-                // This is a placeholder since the token is mock
-                val response = spotifyApi.searchTracks("Bearer $accessToken", query)
+                val token = accessToken ?: throw IllegalStateException("Access token not set")
+                // If using a real token, it should be formatted as "Bearer $token"
+                val response = spotifyApi.searchTracks("Bearer $token", query)
                 _searchResults.value = response.tracks.items
             } catch (e: Exception) {
                 e.printStackTrace()
