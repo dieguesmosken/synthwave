@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ui.theme.NeonPink
 import com.example.ui.theme.ElectricBlue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import kotlinx.coroutines.launch
 import com.example.auth.GoogleAuthClient
 
@@ -31,6 +32,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
     val context = LocalContext.current
     val googleAuthClient = remember { GoogleAuthClient(context) }
     val coroutineScope = rememberCoroutineScope()
+    val uriHandler = LocalUriHandler.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
@@ -165,7 +167,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             if (isLogin) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    TextButton(onClick = { /* TODO */ }) {
+                    TextButton(onClick = { uriHandler.openUri("https://example.com/forgot-password") }) {
                         Text("Esqueceu a senha?", color = NeonPink)
                     }
                 }
@@ -200,9 +202,9 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                TextButton(onClick = { /* TODO */ }) { Text("Termos", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
-                TextButton(onClick = { /* TODO */ }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
-                TextButton(onClick = { /* TODO */ }) { Text("Ajuda", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { uriHandler.openUri("https://example.com/terms") }) { Text("Termos", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { uriHandler.openUri("https://example.com/privacy") }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { uriHandler.openUri("https://example.com/help") }) { Text("Ajuda", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
             }
         }
     }
