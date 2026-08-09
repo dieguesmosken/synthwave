@@ -13,7 +13,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
-class MusicViewModel : ViewModel() {
+class MusicViewModel(injectedSpotifyApi: SpotifyApi? = null) : ViewModel() {
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
@@ -25,7 +25,7 @@ class MusicViewModel : ViewModel() {
         .client(OkHttpClient.Builder().build())
         .build()
 
-    private val spotifyApi = retrofit.create(SpotifyApi::class.java)
+    private val spotifyApi = injectedSpotifyApi ?: retrofit.create(SpotifyApi::class.java)
 
     private val _searchResults = MutableStateFlow<List<SpotifyTrack>>(emptyList())
     val searchResults: StateFlow<List<SpotifyTrack>> = _searchResults
