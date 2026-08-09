@@ -35,6 +35,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var showPrivacyDialog by remember { mutableStateOf(false) }
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
@@ -200,10 +201,14 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                TextButton(onClick = { /* TODO */ }) { Text("Termos", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
-                TextButton(onClick = { /* TODO */ }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { showPrivacyDialog = true }) { Text("Termos", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { showPrivacyDialog = true }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
                 TextButton(onClick = { /* TODO */ }) { Text("Ajuda", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
             }
+        }
+
+        if (showPrivacyDialog) {
+            TermsAndPrivacyDialog(onDismissRequest = { showPrivacyDialog = false })
         }
     }
 }
