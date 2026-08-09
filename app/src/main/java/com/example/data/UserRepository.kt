@@ -42,8 +42,4 @@ class UserRepository {
         }
     }
 
-    suspend fun getUser(id: String): UserModel? {
-        // Implementation here if needed in future
-        return null
-    }
 }
