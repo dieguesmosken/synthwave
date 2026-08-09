@@ -28,6 +28,7 @@ sealed class Screen(val route: String, val title: String, val icon: androidx.com
 }
 
 val bottomNavItems = listOf(Screen.Home, Screen.Search, Screen.Library, Screen.Profile)
+val bottomNavRoutes = bottomNavItems.map { it.route }.toSet()
 
 @Composable
 fun AppNavigation(
@@ -40,7 +41,7 @@ fun AppNavigation(
 
     Scaffold(
         bottomBar = {
-            if (bottomNavItems.any { it.route == currentRoute }) {
+            if (currentRoute != null && bottomNavRoutes.contains(currentRoute)) {
                 NavigationBar(
                     containerColor = MaterialTheme.colorScheme.surface,
                 ) {
