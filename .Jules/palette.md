@@ -5,3 +5,7 @@
 ## 2024-05-24 - Improve Slider Accessibility with Bounding Icons
 **Learning:** When placing bounding icons next to a Slider (like Volume Down/Up), screen readers will redundantly announce them as independent elements if they have `contentDescription` set.
 **Action:** Set bounding icons' `contentDescription` to `null` and instead add a descriptive `contentDescription` directly to the `Slider` using `modifier.semantics { contentDescription = "..." }`. This ensures context is correctly associated with the interactive control.
+
+## 2024-05-24 - Improve Standalone Slider Accessibility
+**Learning:** Standalone sliders (like progress bars) without visible text labels or bounding icons are read only as percentages by screen readers, leaving users without context on what the slider controls.
+**Action:** Always add an explicit `modifier.semantics { contentDescription = "..." }` to standalone sliders to ensure screen reader users have appropriate context.
