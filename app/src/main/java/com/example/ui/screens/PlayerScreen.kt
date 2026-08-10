@@ -93,7 +93,9 @@ fun PlayerScreen(onBack: () -> Unit) {
             Slider(
                 value = 0.35f,
                 onValueChange = {},
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .semantics { contentDescription = "Progresso da música" },
                 colors = SliderDefaults.colors(
                     thumbColor = Color.White,
                     activeTrackColor = Color(0xFFD32F2F),
