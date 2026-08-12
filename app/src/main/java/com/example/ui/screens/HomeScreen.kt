@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -111,7 +112,10 @@ fun RecentSection(onNavigateToPlayer: () -> Unit) {
         ) {
             items(recentMocks) { item ->
                 Column(
-                    modifier = Modifier.width(140.dp).clickable(role = Role.Button) { onNavigateToPlayer() }
+                    modifier = Modifier
+                        .width(140.dp)
+                        .clickable(role = Role.Button) { onNavigateToPlayer() }
+                        .semantics(mergeDescendants = true) { }
                 ) {
                     Box(
                         modifier = Modifier
@@ -121,7 +125,7 @@ fun RecentSection(onNavigateToPlayer: () -> Unit) {
                     ) {
                         AsyncImage(
                             model = "https://picsum.photos/seed/$item/200",
-                            contentDescription = item,
+                            contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
                         )
@@ -163,6 +167,7 @@ fun ForYouCard(title: String, color: Color, modifier: Modifier = Modifier, onCli
             .clip(RoundedCornerShape(8.dp))
             .background(color.copy(alpha = 0.2f))
             .clickable(role = Role.Button) { onClick() }
+            .semantics(mergeDescendants = true) { }
             .padding(16.dp),
         contentAlignment = Alignment.CenterStart
     ) {
@@ -193,6 +198,7 @@ fun TopBrasilSection(onNavigateToPlayer: () -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable(role = Role.Button) { onNavigateToPlayer() }
+                        .semantics(mergeDescendants = true) { }
                         .padding(vertical = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -205,7 +211,7 @@ fun TopBrasilSection(onNavigateToPlayer: () -> Unit) {
                     ) {
                         AsyncImage(
                             model = "https://picsum.photos/seed/${track.first}/100",
-                            contentDescription = track.first,
+                            contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
                         )

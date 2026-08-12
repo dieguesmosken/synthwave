@@ -9,3 +9,7 @@
 ## 2024-05-24 - Improve Standalone Slider Accessibility
 **Learning:** Standalone sliders (like progress bars) without visible text labels or bounding icons are read only as percentages by screen readers, leaving users without context on what the slider controls.
 **Action:** Always add an explicit `modifier.semantics { contentDescription = "..." }` to standalone sliders to ensure screen reader users have appropriate context.
+
+## 2024-05-24 - Grouping Elements for Screen Readers in Compose
+**Learning:** In Jetpack Compose, complex list items containing images and texts are often read as separate elements by screen readers, making navigation tedious.
+**Action:** When building interactive list items or cards with multiple elements, apply `.semantics(mergeDescendants = true) { }` to the parent clickable container. Additionally, set the `contentDescription` of internal icons or images to `null` if their context is already conveyed by sibling text elements to prevent redundant announcements.
