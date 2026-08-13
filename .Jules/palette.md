@@ -9,3 +9,7 @@
 ## 2024-05-24 - Improve Standalone Slider Accessibility
 **Learning:** Standalone sliders (like progress bars) without visible text labels or bounding icons are read only as percentages by screen readers, leaving users without context on what the slider controls.
 **Action:** Always add an explicit `modifier.semantics { contentDescription = "..." }` to standalone sliders to ensure screen reader users have appropriate context.
+
+## 2025-02-12 - Merge Descendants for Clickable List Items
+**Learning:** In Jetpack Compose, when list items or cards have multiple text or icon elements inside a clickable container, screen readers may announce each child sequentially or awkwardly. Using `Modifier.semantics(mergeDescendants = true)` groups them into a single focusable node, reducing redundant and tedious announcements.
+**Action:** Always use `Modifier.semantics(mergeDescendants = true)` on parent clickable containers (like list items or cards) to group child elements for screen readers.
