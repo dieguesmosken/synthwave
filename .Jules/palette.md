@@ -13,3 +13,7 @@
 ## 2025-02-12 - Merge Descendants for Clickable List Items
 **Learning:** In Jetpack Compose, when list items or cards have multiple text or icon elements inside a clickable container, screen readers may announce each child sequentially or awkwardly. Using `Modifier.semantics(mergeDescendants = true)` groups them into a single focusable node, reducing redundant and tedious announcements.
 **Action:** Always use `Modifier.semantics(mergeDescendants = true)` on parent clickable containers (like list items or cards) to group child elements for screen readers.
+
+## 2025-02-13 - Improve Keyboard Usability with KeyboardOptions and singleLine
+**Learning:** In Jetpack Compose, missing `singleLine = true` and `KeyboardOptions` (like `KeyboardType.Email` or `ImeAction.Next`) on text fields causes the enter key to insert new lines awkwardly instead of moving focus, and prevents the system from displaying optimized keyboards (like showing the `@` key for emails).
+**Action:** Always provide explicit `KeyboardOptions` and `singleLine = true` (unless explicitly needing a multi-line input) on forms to significantly improve input speed and usability.
