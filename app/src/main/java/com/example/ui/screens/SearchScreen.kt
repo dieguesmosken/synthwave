@@ -18,6 +18,9 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import com.example.ui.theme.NeonPink
 
 val categories = listOf("Synthwave", "Pop", "Eletrônica", "Rock", "Hip Hop", "K-Pop", "Jazz", "Funk")
@@ -35,6 +38,11 @@ fun SearchScreen() {
                 placeholder = { Text("Artistas, músicas ou podcasts", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)) },
                 leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Pesquisar", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)) },
                 modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(24.dp)).background(Color.White.copy(alpha = 0.1f)),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Search
+                ),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.Transparent,
                     unfocusedBorderColor = Color.Transparent,

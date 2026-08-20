@@ -17,3 +17,7 @@
 ## 2025-02-13 - Improve Keyboard Usability with KeyboardOptions and singleLine
 **Learning:** In Jetpack Compose, missing `singleLine = true` and `KeyboardOptions` (like `KeyboardType.Email` or `ImeAction.Next`) on text fields causes the enter key to insert new lines awkwardly instead of moving focus, and prevents the system from displaying optimized keyboards (like showing the `@` key for emails).
 **Action:** Always provide explicit `KeyboardOptions` and `singleLine = true` (unless explicitly needing a multi-line input) on forms to significantly improve input speed and usability.
+
+## 2026-08-20 - Improve Search Field UX with Keyboard Options
+**Learning:** In Jetpack Compose, missing `singleLine = true` and `KeyboardOptions` (like `ImeAction.Search`) on search fields causes the enter key to insert new lines awkwardly instead of moving focus or submitting, and prevents the system from displaying optimized keyboards (like showing a search icon instead of a return key).
+**Action:** Always provide explicit `KeyboardOptions` and `singleLine = true` on search fields to significantly improve input speed and usability.
