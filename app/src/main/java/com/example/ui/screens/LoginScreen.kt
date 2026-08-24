@@ -38,6 +38,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var showTerms by remember { mutableStateOf(false) }
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
@@ -218,10 +219,14 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                TextButton(onClick = { /* TODO */ }) { Text("Termos", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
-                TextButton(onClick = { /* TODO */ }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { showTerms = true }) { Text("Termos", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { showTerms = true }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
                 TextButton(onClick = { /* TODO */ }) { Text("Ajuda", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
             }
+        }
+
+        if (showTerms) {
+            TermsAndPrivacyDialog(onDismiss = { showTerms = false })
         }
     }
 }
