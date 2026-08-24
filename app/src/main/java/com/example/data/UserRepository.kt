@@ -11,20 +11,21 @@ import org.bson.Document
 
 class UserRepository {
 
-    private val connectionString = "mongodb+srv://synthwave_db_user:<db_password>@synthwave-cluster0-aws.qhia3jr.mongodb.net/?appName=synthwave-Cluster0-AWS"
-    private val client: MongoClient
+    companion object {
+        private const val connectionString = "mongodb+srv://synthwave_db_user:<db_password>@synthwave-cluster0-aws.qhia3jr.mongodb.net/?appName=synthwave-Cluster0-AWS"
 
-    init {
-        val serverApi = ServerApi.builder()
-            .version(ServerApiVersion.V1)
-            .build()
+        private val client: MongoClient by lazy {
+            val serverApi = ServerApi.builder()
+                .version(ServerApiVersion.V1)
+                .build()
 
-        val settings = MongoClientSettings.builder()
-            .applyConnectionString(ConnectionString(connectionString))
-            .serverApi(serverApi)
-            .build()
+            val settings = MongoClientSettings.builder()
+                .applyConnectionString(ConnectionString(connectionString))
+                .serverApi(serverApi)
+                .build()
 
-        client = MongoClient.create(settings)
+            MongoClient.create(settings)
+        }
     }
 
     suspend fun saveUser(user: UserModel) {
