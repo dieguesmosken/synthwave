@@ -130,3 +130,6 @@ dependencies {
   "ksp"(libs.androidx.room.compiler)
   "ksp"(libs.moshi.kotlin.codegen)
 }
+dependencies {
+  testImplementation(libs.mockk)
+}
