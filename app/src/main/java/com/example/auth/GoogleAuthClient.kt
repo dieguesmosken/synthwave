@@ -8,6 +8,7 @@ import androidx.credentials.GetCredentialResponse
 import androidx.credentials.exceptions.GetCredentialException
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.example.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -17,7 +18,7 @@ class GoogleAuthClient(private val context: Context) {
 
     // In a real app, this should be the Web Client ID from Google Cloud Console.
     // Ensure you create an OAuth client ID of type "Web application" to use here.
-    private val webClientId = "YOUR_WEB_CLIENT_ID_HERE"
+    private val webClientId = BuildConfig.GOOGLE_WEB_CLIENT_ID
 
     suspend fun signIn(): GoogleIdTokenCredential? {
         return withContext(Dispatchers.IO) {
