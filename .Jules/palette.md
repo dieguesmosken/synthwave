@@ -21,3 +21,7 @@
 ## 2025-02-13 - Enhance Search Field UX
 **Learning:** Hardcoded, empty `onValueChange` callbacks in Jetpack Compose `OutlinedTextField` make the input uneditable and unresponsive. Furthermore, without `singleLine = true` and `KeyboardOptions(imeAction = ImeAction.Search)`, the enter key defaults to an unexpected newline, and the keyboard lacks the "Search" action button.
 **Action:** Always bind text fields to a state holder (e.g., `mutableStateOf`). Add a conditional trailing 'clear' icon button for better usability, and explicitly configure `singleLine` and `KeyboardOptions` to optimize the keyboard layout for the context (e.g., Search).
+
+## 2025-02-13 - Improve Async Feedback and Accessibility in Authentication
+**Learning:** Adding a visual loading state (`CircularProgressIndicator`) and disabling the login button during authentication prevents duplicate clicks and provides clear UX feedback. Furthermore, translating hardcoded accessibility `contentDescription` strings ensures proper screen reader support in localized apps.
+**Action:** Always provide visual feedback (like a loading spinner) during async operations and ensure all accessibility strings are localized correctly.
