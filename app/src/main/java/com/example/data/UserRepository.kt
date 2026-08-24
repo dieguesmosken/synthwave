@@ -8,6 +8,7 @@ import com.mongodb.kotlin.client.coroutine.MongoClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.bson.Document
+import android.util.Log
 
 class UserRepository {
 
@@ -34,10 +35,10 @@ class UserRepository {
                 val collection = database.getCollection<UserModel>("users")
 
                 collection.insertOne(user)
-                println("User saved to MongoDB: ${user.name}")
+                Log.d("UserRepository", "User saved to MongoDB: ${user.name}")
             } catch (e: Exception) {
-                e.printStackTrace()
-                println("Error saving to MongoDB: ${e.message}")
+                Log.e("UserRepository", "Error saving to MongoDB: ${e.message}", e)
+
             }
         }
     }

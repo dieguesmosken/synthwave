@@ -1,5 +1,6 @@
 package com.example.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.SpotifyApi
@@ -54,7 +55,7 @@ class MusicViewModel : ViewModel() {
                 val response = spotifyApi.searchTracks("Bearer $accessToken", query)
                 _searchResults.value = response.tracks.items
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.e("MusicViewModel", "Error searching tracks", e)
                 // Provide some fallback mock data if real API fails due to invalid token
                 _searchResults.value = listOf(
                     SpotifyTrack(
