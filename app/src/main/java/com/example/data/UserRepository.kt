@@ -1,5 +1,6 @@
 package com.example.data
 
+import android.util.Log
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
 import com.mongodb.ServerApi
@@ -10,6 +11,10 @@ import kotlinx.coroutines.withContext
 import org.bson.Document
 
 class UserRepository {
+
+    companion object {
+        private const val TAG = "UserRepository"
+    }
 
     private val connectionString = "mongodb+srv://synthwave_db_user:<db_password>@synthwave-cluster0-aws.qhia3jr.mongodb.net/?appName=synthwave-Cluster0-AWS"
     private val client: MongoClient
@@ -34,10 +39,9 @@ class UserRepository {
                 val collection = database.getCollection<UserModel>("users")
 
                 collection.insertOne(user)
-                println("User saved to MongoDB: ${user.name}")
+                Log.d(TAG, "User saved to MongoDB: ${user.name}")
             } catch (e: Exception) {
-                e.printStackTrace()
-                println("Error saving to MongoDB: ${e.message}")
+                Log.e(TAG, "Error saving to MongoDB: ${e.message}", e)
             }
         }
     }
