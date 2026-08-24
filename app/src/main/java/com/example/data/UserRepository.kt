@@ -7,30 +7,34 @@ import com.mongodb.ServerApiVersion
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.bson.Document
 
-class UserRepository {
-
+class UserRepository(
+    private val client: MongoClient? = null
+) {
     private val connectionString = "mongodb+srv://synthwave_db_user:<db_password>@synthwave-cluster0-aws.qhia3jr.mongodb.net/?appName=synthwave-Cluster0-AWS"
-    private val client: MongoClient
+    private val mongoClient: MongoClient
 
     init {
-        val serverApi = ServerApi.builder()
-            .version(ServerApiVersion.V1)
-            .build()
+        if (client != null) {
+            mongoClient = client
+        } else {
+            val serverApi = ServerApi.builder()
+                .version(ServerApiVersion.V1)
+                .build()
 
-        val settings = MongoClientSettings.builder()
-            .applyConnectionString(ConnectionString(connectionString))
-            .serverApi(serverApi)
-            .build()
+            val settings = MongoClientSettings.builder()
+                .applyConnectionString(ConnectionString(connectionString))
+                .serverApi(serverApi)
+                .build()
 
-        client = MongoClient.create(settings)
+            mongoClient = MongoClient.create(settings)
+        }
     }
 
     suspend fun saveUser(user: UserModel) {
         withContext(Dispatchers.IO) {
             try {
-                val database = client.getDatabase("soundwave")
+                val database = mongoClient.getDatabase("soundwave")
                 val collection = database.getCollection<UserModel>("users")
 
                 collection.insertOne(user)
