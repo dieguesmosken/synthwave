@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import com.example.ui.screens.ForgotPasswordScreen
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
@@ -25,6 +26,7 @@ sealed class Screen(val route: String, val title: String, val icon: androidx.com
     object Profile : Screen("profile", "Perfil", Icons.Filled.Person)
     object Settings : Screen("settings", "Settings", null)
     object Player : Screen("player", "Now Playing", null)
+    object ForgotPassword : Screen("forgot_password", "Esqueceu a senha", null)
 }
 
 val bottomNavItems = listOf(Screen.Home, Screen.Search, Screen.Library, Screen.Profile)
@@ -77,12 +79,18 @@ fun AppNavigation(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Login.route) {
-                LoginScreen(onLoginSuccess = {
+                LoginScreen(
+                    onLoginSuccess = {
                     navController.navigate(Screen.Home.route) {
                         popUpTo(0)
                         launchSingleTop = true
                     }
-                })
+                },
+                onNavigateToForgotPassword = { navController.navigate(Screen.ForgotPassword.route) }
+                )
+            }
+            composable(Screen.ForgotPassword.route) {
+                ForgotPasswordScreen(onBack = { navController.popBackStack() })
             }
             composable(Screen.Home.route) {
                 HomeScreen(onNavigateToPlayer = { navController.navigate(Screen.Player.route) })
