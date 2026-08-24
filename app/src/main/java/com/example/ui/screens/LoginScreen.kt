@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ui.theme.NeonPink
 import com.example.ui.theme.ElectricBlue
 import androidx.compose.ui.platform.LocalContext
+import android.widget.Toast
 import kotlinx.coroutines.launch
 import com.example.auth.GoogleAuthClient
 
@@ -183,7 +184,13 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             if (isLogin) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    TextButton(onClick = { /* TODO */ }) {
+                    TextButton(onClick = {
+                        if (email.isBlank()) {
+                            Toast.makeText(context, "Por favor, insira seu e-mail", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Instruções enviadas para $email", Toast.LENGTH_SHORT).show()
+                        }
+                    }) {
                         Text("Esqueceu a senha?", color = NeonPink)
                     }
                 }
