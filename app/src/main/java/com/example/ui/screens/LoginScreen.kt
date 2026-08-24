@@ -26,6 +26,7 @@ import com.example.ui.theme.ElectricBlue
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.launch
 import com.example.auth.GoogleAuthClient
+import com.example.ui.components.LgpdDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,6 +39,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var showLGPD by remember { mutableStateOf(false) }
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
@@ -218,11 +220,15 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                TextButton(onClick = { /* TODO */ }) { Text("Termos", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
-                TextButton(onClick = { /* TODO */ }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { showLGPD = true }) { Text("Termos", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
+                TextButton(onClick = { showLGPD = true }) { Text("Privacidade", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
                 TextButton(onClick = { /* TODO */ }) { Text("Ajuda", color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f), fontSize = 12.sp) }
             }
         }
+    }
+
+    if (showLGPD) {
+        LgpdDialog(onDismiss = { showLGPD = false })
     }
 }
 
