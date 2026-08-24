@@ -11,7 +11,7 @@ import org.bson.Document
 
 class UserRepository {
 
-    private val connectionString = "mongodb+srv://synthwave_db_user:<db_password>@synthwave-cluster0-aws.qhia3jr.mongodb.net/?appName=synthwave-Cluster0-AWS"
+    private val connectionString = com.example.BuildConfig.MONGODB_CONNECTION_STRING
     private val client: MongoClient
 
     init {
