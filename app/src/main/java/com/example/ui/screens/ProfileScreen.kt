@@ -102,7 +102,7 @@ fun ProfileScreen(onSettingsClick: () -> Unit, onLogoutClick: () -> Unit) {
                             ) {
                                 AsyncImage(
                                     model = "https://ui-avatars.com/api/?name=$artist&background=random",
-                                    contentDescription = artist,
+                                    contentDescription = null,
                                     modifier = Modifier.fillMaxSize(),
                                     contentScale = ContentScale.Crop
                                 )

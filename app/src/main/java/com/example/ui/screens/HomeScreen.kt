@@ -125,7 +125,7 @@ fun RecentSection(onNavigateToPlayer: () -> Unit) {
                     ) {
                         AsyncImage(
                             model = "https://picsum.photos/seed/$item/200",
-                            contentDescription = item,
+                            contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
                         )
@@ -211,7 +211,7 @@ fun TopBrasilSection(onNavigateToPlayer: () -> Unit) {
                     ) {
                         AsyncImage(
                             model = "https://picsum.photos/seed/${track.first}/100",
-                            contentDescription = track.first,
+                            contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
                         )
