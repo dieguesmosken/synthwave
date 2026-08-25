@@ -21,3 +21,7 @@
 ## 2025-02-13 - Enhance Search Field UX
 **Learning:** Hardcoded, empty `onValueChange` callbacks in Jetpack Compose `OutlinedTextField` make the input uneditable and unresponsive. Furthermore, without `singleLine = true` and `KeyboardOptions(imeAction = ImeAction.Search)`, the enter key defaults to an unexpected newline, and the keyboard lacks the "Search" action button.
 **Action:** Always bind text fields to a state holder (e.g., `mutableStateOf`). Add a conditional trailing 'clear' icon button for better usability, and explicitly configure `singleLine` and `KeyboardOptions` to optimize the keyboard layout for the context (e.g., Search).
+
+## 2025-02-14 - Prevent Redundant Image Descriptions in Merged Components
+**Learning:** When using `Modifier.semantics(mergeDescendants = true)` on a clickable container (like list items or cards), providing a `contentDescription` to an `AsyncImage` that matches sibling text causes screen readers to announce the same information twice (e.g., "Neon Nights, Neon Nights").
+**Action:** Always set `contentDescription = null` on images within merged semantic nodes if a sibling text element already provides the identical context.
