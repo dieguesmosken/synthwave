@@ -38,7 +38,6 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
-    var isGoogleLoading by remember { mutableStateOf(false) }
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
@@ -80,30 +79,23 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
 
             OutlinedButton(
                 onClick = {
-                    if (isGoogleLoading) return@OutlinedButton
-                    isGoogleLoading = true
                     coroutineScope.launch {
-                        try {
-                            val credential = googleAuthClient.signIn()
-                            if (credential != null) {
-                                val userRepository = com.example.data.UserRepository()
-                                val user = com.example.data.UserModel(
-                                    _id = credential.id,
-                                    name = credential.displayName ?: "Usuário SoundWave",
-                                    email = credential.id
-                                )
-                                userRepository.saveUser(user)
-                                onLoginSuccess()
-                            }
-                        } finally {
-                            isGoogleLoading = false
+                        val credential = googleAuthClient.signIn()
+                        if (credential != null) {
+                            val userRepository = com.example.data.UserRepository()
+                            val user = com.example.data.UserModel(
+                                _id = credential.id,
+                                name = credential.displayName ?: "Usuário SoundWave",
+                                email = credential.id
+                            )
+                            userRepository.saveUser(user)
+                            onLoginSuccess()
                         }
                     }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
-                enabled = !isGoogleLoading,
                 shape = RoundedCornerShape(8.dp),
                 colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onBackground)
             ) {
@@ -233,4 +225,3 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
         }
     }
 }
-
