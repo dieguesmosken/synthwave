@@ -1,0 +1,69 @@
+--- ./app/src/main/java/com/example/ui/screens/LoginScreen.kt
++++ ./app/src/main/java/com/example/ui/screens/LoginScreen.kt
+@@ -38,6 +38,7 @@
+     var password by remember { mutableStateOf("") }
+     var name by remember { mutableStateOf("") }
+     var passwordVisible by remember { mutableStateOf(false) }
++    var isGoogleLoading by remember { mutableStateOf(false) }
+
+     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+         Column(
+@@ -82,23 +83,30 @@
+
+             OutlinedButton(
+                 onClick = {
++                    if (isGoogleLoading) return@OutlinedButton
++                    isGoogleLoading = true
+                     coroutineScope.launch {
+-                        val credential = googleAuthClient.signIn()
+-                        if (credential != null) {
+-                            val userRepository = com.example.data.UserRepository()
+-                            val user = com.example.data.UserModel(
+-                                _id = credential.id,
+-                                name = credential.displayName ?: "Usuário SoundWave",
+-                                email = credential.id
+-                            )
+-                            userRepository.saveUser(user)
+-                            onLoginSuccess()
++                        try {
++                            val credential = googleAuthClient.signIn()
++                            if (credential != null) {
++                                val userRepository = com.example.data.UserRepository()
++                                val user = com.example.data.UserModel(
++                                    _id = credential.id,
++                                    name = credential.displayName ?: "Usuário SoundWave",
++                                    email = credential.id
++                                )
++                                userRepository.saveUser(user)
++                                onLoginSuccess()
++                            }
++                        } finally {
++                            isGoogleLoading = false
+                         }
+                     }
+                 },
+                 modifier = Modifier
+                     .fillMaxWidth()
+                     .height(50.dp),
++                enabled = !isGoogleLoading,
+                 shape = RoundedCornerShape(8.dp),
+                 colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onBackground)
+             ) {
+-                Text(if (isLogin) "Continuar com Google" else "Cadastrar com Google")
++                if (isGoogleLoading) {
++                    CircularProgressIndicator(modifier = Modifier.size(24.dp), color = MaterialTheme.colorScheme.onBackground, strokeWidth = 2.dp)
++                } else {
++                    Text(if (isLogin) "Continuar com Google" else "Cadastrar com Google")
++                }
+             }
+
+             Spacer(modifier = Modifier.height(24.dp))
+@@ -164,7 +172,7 @@
+                 trailingIcon = {
+                     val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                     IconButton(onClick = { passwordVisible = !passwordVisible }) {
+-                        Icon(imageVector = image, contentDescription = if (passwordVisible) "Hide password" else "Show password")
++                        Icon(imageVector = image, contentDescription = if (passwordVisible) "Ocultar senha" else "Mostrar senha")
+                     }
+                 },
+                 modifier = Modifier.fillMaxWidth(),
