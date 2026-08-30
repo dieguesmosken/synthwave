@@ -19,6 +19,7 @@ import com.example.ui.screens.*
 
 sealed class Screen(val route: String, val title: String, val icon: androidx.compose.ui.graphics.vector.ImageVector?) {
     object Login : Screen("login", "Login", null)
+    object ForgotPassword : Screen("forgot_password", "Esqueceu a senha", null)
     object Home : Screen("home", "Home", Icons.Filled.Home)
     object Search : Screen("search", "Busca", Icons.Filled.Search)
     object Library : Screen("library", "Biblioteca", Icons.Filled.LibraryMusic)
@@ -77,12 +78,20 @@ fun AppNavigation(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Login.route) {
-                LoginScreen(onLoginSuccess = {
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(0)
-                        launchSingleTop = true
+                LoginScreen(
+                    onLoginSuccess = {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(0)
+                            launchSingleTop = true
+                        }
+                    },
+                    onForgotPasswordClick = {
+                        navController.navigate(Screen.ForgotPassword.route)
                     }
-                })
+                )
+            }
+            composable(Screen.ForgotPassword.route) {
+                ForgotPasswordScreen(onBack = { navController.popBackStack() })
             }
             composable(Screen.Home.route) {
                 HomeScreen(onNavigateToPlayer = { navController.navigate(Screen.Player.route) })

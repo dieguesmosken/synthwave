@@ -29,7 +29,7 @@ import com.example.auth.GoogleAuthClient
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(onLoginSuccess: () -> Unit) {
+fun LoginScreen(onLoginSuccess: () -> Unit, onForgotPasswordClick: () -> Unit = {}) {
     var isLogin by remember { mutableStateOf(true) }
     val context = LocalContext.current
     val googleAuthClient = remember { GoogleAuthClient(context) }
@@ -183,7 +183,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             if (isLogin) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    TextButton(onClick = { /* TODO */ }) {
+                    TextButton(onClick = onForgotPasswordClick) {
                         Text("Esqueceu a senha?", color = NeonPink)
                     }
                 }
