@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.ui.theme.ElectricBlue
 import com.example.ui.theme.NeonPink
 
 data class LibraryItem(val title: String, val subtitle: String, val imageSeed: String, val isPinned: Boolean = false, val isRound: Boolean = false)
