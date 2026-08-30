@@ -1,5 +1,6 @@
 package com.example.data
 
+import android.util.Log
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
 import com.mongodb.ServerApi
@@ -7,24 +8,26 @@ import com.mongodb.ServerApiVersion
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.bson.Document
 
-class UserRepository {
+class UserRepository(
+    private val client: MongoClient = defaultClient
+) {
+    companion object {
+        private const val TAG = "UserRepository"
+        private const val connectionString = "mongodb+srv://synthwave_db_user:<db_password>@synthwave-cluster0-aws.qhia3jr.mongodb.net/?appName=synthwave-Cluster0-AWS"
 
-    private val connectionString = "mongodb+srv://synthwave_db_user:<db_password>@synthwave-cluster0-aws.qhia3jr.mongodb.net/?appName=synthwave-Cluster0-AWS"
-    private val client: MongoClient
+        val defaultClient: MongoClient by lazy {
+            val serverApi = ServerApi.builder()
+                .version(ServerApiVersion.V1)
+                .build()
 
-    init {
-        val serverApi = ServerApi.builder()
-            .version(ServerApiVersion.V1)
-            .build()
+            val settings = MongoClientSettings.builder()
+                .applyConnectionString(ConnectionString(connectionString))
+                .serverApi(serverApi)
+                .build()
 
-        val settings = MongoClientSettings.builder()
-            .applyConnectionString(ConnectionString(connectionString))
-            .serverApi(serverApi)
-            .build()
-
-        client = MongoClient.create(settings)
+            MongoClient.create(settings)
+        }
     }
 
     suspend fun saveUser(user: UserModel) {
@@ -34,10 +37,9 @@ class UserRepository {
                 val collection = database.getCollection<UserModel>("users")
 
                 collection.insertOne(user)
-                println("User saved to MongoDB: ${user.name}")
+                Log.d(TAG, "User saved to MongoDB: ${user.name}")
             } catch (e: Exception) {
-                e.printStackTrace()
-                println("Error saving to MongoDB: ${e.message}")
+                Log.e(TAG, "Error saving to MongoDB: ${e.message}", e)
             }
         }
     }
