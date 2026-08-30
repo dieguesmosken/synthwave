@@ -17,7 +17,7 @@ class GoogleAuthClient(private val context: Context) {
 
     // In a real app, this should be the Web Client ID from Google Cloud Console.
     // Ensure you create an OAuth client ID of type "Web application" to use here.
-    private val webClientId = "YOUR_WEB_CLIENT_ID_HERE"
+    private val webClientId = com.example.BuildConfig.WEB_CLIENT_ID
 
     suspend fun signIn(): GoogleIdTokenCredential? {
         return withContext(Dispatchers.IO) {
