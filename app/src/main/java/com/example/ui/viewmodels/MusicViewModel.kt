@@ -36,10 +36,6 @@ class MusicViewModel : ViewModel() {
     // In a real application, you would fetch and refresh this token via Spotify's OAuth 2.0 flow
     private var accessToken = "MOCK_SPOTIFY_TOKEN"
 
-    fun setToken(token: String) {
-        this.accessToken = token
-    }
-
     fun search(query: String) {
         if (query.isBlank()) {
             _searchResults.value = emptyList()
