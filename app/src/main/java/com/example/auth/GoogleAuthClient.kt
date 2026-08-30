@@ -13,6 +13,10 @@ import kotlinx.coroutines.withContext
 
 class GoogleAuthClient(private val context: Context) {
 
+    companion object {
+        private const val TAG = "GoogleAuthClient"
+    }
+
     private val credentialManager = CredentialManager.create(context)
 
     // In a real app, this should be the Web Client ID from Google Cloud Console.
@@ -35,10 +39,10 @@ class GoogleAuthClient(private val context: Context) {
                 val result = credentialManager.getCredential(context, request)
                 handleSignIn(result)
             } catch (e: GetCredentialException) {
-                Log.e("GoogleAuthClient", "Sign-in failed", e)
+                Log.e(TAG, "Sign-in failed", e)
                 null
             } catch (e: Exception) {
-                Log.e("GoogleAuthClient", "Unexpected sign-in error", e)
+                Log.e(TAG, "Unexpected sign-in error", e)
                 null
             }
         }
@@ -49,13 +53,13 @@ class GoogleAuthClient(private val context: Context) {
         if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
             try {
                 val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-                Log.d("GoogleAuthClient", "Signed in as: ${googleIdTokenCredential.id}")
+                Log.d(TAG, "Signed in successfully")
                 return googleIdTokenCredential
             } catch (e: Exception) {
-                Log.e("GoogleAuthClient", "Received an invalid google id token response", e)
+                Log.e(TAG, "Received an invalid google id token response", e)
             }
         } else {
-            Log.e("GoogleAuthClient", "Unexpected type of credential")
+            Log.e(TAG, "Unexpected type of credential")
         }
         return null
     }
