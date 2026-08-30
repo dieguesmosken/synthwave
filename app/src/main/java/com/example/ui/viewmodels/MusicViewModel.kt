@@ -34,7 +34,7 @@ class MusicViewModel : ViewModel() {
     val isLoading: StateFlow<Boolean> = _isLoading
 
     // In a real application, you would fetch and refresh this token via Spotify's OAuth 2.0 flow
-    private var accessToken = "MOCK_SPOTIFY_TOKEN"
+    private var accessToken = com.example.BuildConfig.SPOTIFY_TOKEN
 
     fun setToken(token: String) {
         this.accessToken = token
