@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 
 class GoogleAuthClient(private val context: Context) {
 
-    private val credentialManager = CredentialManager.create(context)
+    internal var credentialManager = CredentialManager.create(context)
 
     // In a real app, this should be the Web Client ID from Google Cloud Console.
     // Ensure you create an OAuth client ID of type "Web application" to use here.
