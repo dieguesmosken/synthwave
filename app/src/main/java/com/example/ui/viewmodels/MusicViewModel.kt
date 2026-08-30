@@ -25,7 +25,7 @@ class MusicViewModel : ViewModel() {
         .client(OkHttpClient.Builder().build())
         .build()
 
-    private val spotifyApi = retrofit.create(SpotifyApi::class.java)
+    internal var spotifyApi = retrofit.create(SpotifyApi::class.java)
 
     private val _searchResults = MutableStateFlow<List<SpotifyTrack>>(emptyList())
     val searchResults: StateFlow<List<SpotifyTrack>> = _searchResults
