@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.ui.theme.ElectricBlue
 import com.example.ui.theme.NeonPink
 
 val recentMocks = listOf("Retro Drive", "Midnight City", "Nightcall")
