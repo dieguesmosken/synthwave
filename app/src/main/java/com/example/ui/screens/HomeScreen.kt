@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -86,7 +87,7 @@ fun HomeScreen(onNavigateToPlayer: () -> Unit) {
 
             item { RecentSection(onNavigateToPlayer) }
             item { ForYouSection(onNavigateToPlayer) }
-            item { TopBrasilSection(onNavigateToPlayer) }
+            TopBrasilSection(onNavigateToPlayer)
             
             item { Spacer(modifier = Modifier.height(100.dp)) }
         }
@@ -187,13 +188,13 @@ fun ForYouCard(title: String, color: Color, modifier: Modifier = Modifier, onCli
     }
 }
 
-@Composable
-fun TopBrasilSection(onNavigateToPlayer: () -> Unit) {
-    Column(modifier = Modifier.padding(vertical = 12.dp)) {
-        Text("Top Brasil", fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
-        
-        Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-            topsMocks.forEachIndexed { index, track ->
+fun LazyListScope.TopBrasilSection(onNavigateToPlayer: () -> Unit) {
+    item {
+        Text("Top Brasil", fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 8.dp))
+    }
+
+    itemsIndexed(topsMocks) { index, track ->
+        Box(modifier = Modifier.padding(horizontal = 16.dp)) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -225,7 +226,6 @@ fun TopBrasilSection(onNavigateToPlayer: () -> Unit) {
                         Icon(Icons.Filled.MoreVert, contentDescription = "Mais opções", tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f))
                     }
                 }
-            }
         }
     }
 }
