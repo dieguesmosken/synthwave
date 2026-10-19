@@ -38,6 +38,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var isGoogleLoading by remember { mutableStateOf(false) }
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
@@ -50,7 +51,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Filled.GraphicEq,
-                    contentDescription = "SoundWave Logo",
+                    contentDescription = "Logotipo do SoundWave",
                     tint = NeonPink,
                     modifier = Modifier.size(32.dp)
                 )
@@ -80,26 +81,40 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             OutlinedButton(
                 onClick = {
                     coroutineScope.launch {
-                        val credential = googleAuthClient.signIn()
-                        if (credential != null) {
-                            val userRepository = com.example.data.UserRepository()
-                            val user = com.example.data.UserModel(
-                                _id = credential.id,
-                                name = credential.displayName ?: "Usuário SoundWave",
-                                email = credential.id
-                            )
-                            userRepository.saveUser(user)
-                            onLoginSuccess()
+                        isGoogleLoading = true
+                        try {
+                            val credential = googleAuthClient.signIn()
+                            if (credential != null) {
+                                val userRepository = com.example.data.UserRepository()
+                                val user = com.example.data.UserModel(
+                                    _id = credential.id,
+                                    name = credential.displayName ?: "Usuário SoundWave",
+                                    email = credential.id
+                                )
+                                userRepository.saveUser(user)
+                                onLoginSuccess()
+                            }
+                        } finally {
+                            isGoogleLoading = false
                         }
                     }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
+                enabled = !isGoogleLoading,
                 shape = RoundedCornerShape(8.dp),
                 colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onBackground)
             ) {
-                Text(if (isLogin) "Continuar com Google" else "Cadastrar com Google")
+                if (isGoogleLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Text(if (isLogin) "Continuar com Google" else "Cadastrar com Google")
+                }
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -164,7 +179,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                 trailingIcon = {
                     val image = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                     IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                        Icon(imageVector = image, contentDescription = if (passwordVisible) "Hide password" else "Show password")
+                        Icon(imageVector = image, contentDescription = if (passwordVisible) "Ocultar senha" else "Mostrar senha")
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
