@@ -21,3 +21,7 @@
 ## 2025-02-13 - Enhance Search Field UX
 **Learning:** Hardcoded, empty `onValueChange` callbacks in Jetpack Compose `OutlinedTextField` make the input uneditable and unresponsive. Furthermore, without `singleLine = true` and `KeyboardOptions(imeAction = ImeAction.Search)`, the enter key defaults to an unexpected newline, and the keyboard lacks the "Search" action button.
 **Action:** Always bind text fields to a state holder (e.g., `mutableStateOf`). Add a conditional trailing 'clear' icon button for better usability, and explicitly configure `singleLine` and `KeyboardOptions` to optimize the keyboard layout for the context (e.g., Search).
+
+## 2025-02-14 - Enhance Search Field Keyboard Handling
+**Learning:** In Jetpack Compose, explicitly adding `KeyboardActions(onSearch = { focusManager.clearFocus() })` with `LocalFocusManager.current` is essential for search fields. Without it, the search button on the keyboard is functionally dead, and the keyboard refuses to dismiss naturally after performing the search, leading to a trapped and frustrating user experience.
+**Action:** Always provide explicit `KeyboardActions` tied to `LocalFocusManager` in text fields when a specific `imeAction` (like `Search` or `Done`) is configured, to ensure the keyboard is properly dismissed and the expected action is fully handled.
