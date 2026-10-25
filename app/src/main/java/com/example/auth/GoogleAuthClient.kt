@@ -49,7 +49,7 @@ class GoogleAuthClient(private val context: Context) {
         if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
             try {
                 val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-                Log.d("GoogleAuthClient", "Signed in as: ${googleIdTokenCredential.id}")
+                Log.d("GoogleAuthClient", "Sign-in successful")
                 return googleIdTokenCredential
             } catch (e: Exception) {
                 Log.e("GoogleAuthClient", "Received an invalid google id token response", e)
