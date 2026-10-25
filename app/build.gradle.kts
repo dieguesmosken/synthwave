@@ -62,7 +62,7 @@ android {
       excludes += "META-INF/native-image/reflect-config.json"
     }
   }
-  testOptions { unitTests { isIncludeAndroidResources = true } }
+  testOptions { unitTests { isIncludeAndroidResources = true; isReturnDefaultValues = true } }
 }
 
 // Configure the Secrets Gradle Plugin to use .env and .env.example files
@@ -117,6 +117,7 @@ dependencies {
   testImplementation(libs.junit)
   testImplementation(libs.kotlinx.coroutines.test)
   testImplementation(libs.robolectric)
+  testImplementation(libs.mockk)
   testImplementation(libs.roborazzi)
   testImplementation(libs.roborazzi.compose)
   testImplementation(libs.roborazzi.junit.rule)

@@ -11,9 +11,10 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class GoogleAuthClient(private val context: Context) {
-
-    private val credentialManager = CredentialManager.create(context)
+class GoogleAuthClient(
+    private val context: Context,
+    private val credentialManager: CredentialManager = CredentialManager.create(context)
+) {
 
     // In a real app, this should be the Web Client ID from Google Cloud Console.
     // Ensure you create an OAuth client ID of type "Web application" to use here.
