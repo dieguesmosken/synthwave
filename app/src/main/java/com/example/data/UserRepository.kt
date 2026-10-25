@@ -6,12 +6,13 @@ import com.mongodb.ServerApi
 import com.mongodb.ServerApiVersion
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import kotlinx.coroutines.Dispatchers
+import com.example.BuildConfig
 import kotlinx.coroutines.withContext
 import org.bson.Document
 
 class UserRepository {
 
-    private val connectionString = "mongodb+srv://synthwave_db_user:<db_password>@synthwave-cluster0-aws.qhia3jr.mongodb.net/?appName=synthwave-Cluster0-AWS"
+    private val connectionString = BuildConfig.MONGODB_CONNECTION_STRING
     private val client: MongoClient
 
     init {
