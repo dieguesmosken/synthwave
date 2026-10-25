@@ -19,6 +19,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import android.widget.Toast
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui.theme.NeonPink
@@ -183,7 +184,13 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             if (isLogin) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    TextButton(onClick = { /* TODO */ }) {
+                    TextButton(onClick = {
+                        if (email.isBlank()) {
+                            Toast.makeText(context, "Por favor, insira seu e-mail para recuperar a senha.", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Instruções de recuperação enviadas para $email", Toast.LENGTH_SHORT).show()
+                        }
+                    }) {
                         Text("Esqueceu a senha?", color = NeonPink)
                     }
                 }
