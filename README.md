@@ -23,5 +23,5 @@ Bem-vindo ao **SoundWave**, um aplicativo reprodutor de música inspirado pela e
 6. Execute o app no emulador ou dispositivo clicando em **Run** (`Shift + F10`).
 
 ### Notas Adicionais para Funcionalidades Específicas
-- **Spotify API:** Para utilizar as buscas reais, você precisará de um `AccessToken` válido. O App hoje tem um espaço reservado em `MusicViewModel.kt` com `MOCK_SPOTIFY_TOKEN`. Para obter um token real, registre uma aplicação no [Spotify Developer Dashboard](https://developer.spotify.com/dashboard).
+- **Spotify API:** Para utilizar as buscas reais, você precisará de um `AccessToken` válido. O App não inclui mais um token `mock` fixo em `MusicViewModel.kt` por questões de segurança. Caso não seja fornecido um token usando `setToken()`, a pesquisa exibirá dados fictícios (`mock`). Para obter um token real, registre uma aplicação no [Spotify Developer Dashboard](https://developer.spotify.com/dashboard).
 - **Google Login:** Para que o Google Sign-In funcione corretamente em produção, certifique-se de configurar a sua impressão digital (SHA-1) e criar o `Web Client ID` no Google Cloud Console, inserindo o ID no arquivo `GoogleAuthClient.kt`.
