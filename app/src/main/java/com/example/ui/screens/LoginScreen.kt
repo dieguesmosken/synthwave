@@ -38,6 +38,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
     var password by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var isLoadingGoogle by remember { mutableStateOf(false) }
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
@@ -79,17 +80,22 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
 
             OutlinedButton(
                 onClick = {
+                    isLoadingGoogle = true
                     coroutineScope.launch {
-                        val credential = googleAuthClient.signIn()
-                        if (credential != null) {
-                            val userRepository = com.example.data.UserRepository()
-                            val user = com.example.data.UserModel(
-                                _id = credential.id,
-                                name = credential.displayName ?: "Usuário SoundWave",
-                                email = credential.id
-                            )
-                            userRepository.saveUser(user)
-                            onLoginSuccess()
+                        try {
+                            val credential = googleAuthClient.signIn()
+                            if (credential != null) {
+                                val userRepository = com.example.data.UserRepository()
+                                val user = com.example.data.UserModel(
+                                    _id = credential.id,
+                                    name = credential.displayName ?: "Usuário SoundWave",
+                                    email = credential.id
+                                )
+                                userRepository.saveUser(user)
+                                onLoginSuccess()
+                            }
+                        } finally {
+                            isLoadingGoogle = false
                         }
                     }
                 },
@@ -97,9 +103,20 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
                     .fillMaxWidth()
                     .height(50.dp),
                 shape = RoundedCornerShape(8.dp),
-                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onBackground)
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onBackground),
+                enabled = !isLoadingGoogle
             ) {
-                Text(if (isLogin) "Continuar com Google" else "Cadastrar com Google")
+                if (isLoadingGoogle) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        strokeWidth = 2.dp
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Carregando...")
+                } else {
+                    Text(if (isLogin) "Continuar com Google" else "Cadastrar com Google")
+                }
             }
 
             Spacer(modifier = Modifier.height(24.dp))
